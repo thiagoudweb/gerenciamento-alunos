@@ -55,11 +55,11 @@ public class UsuarioControllerTest {
 
     // #2 TESTE
     @Test
-    public void testarTelaLogin() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/"))
+    public void index() throws Exception {
+        this.mockMvc.perform(get("/index"))
                 .andExpect(status().isOk())
-                .andExpect(view().name("login/login"))
-                .andExpect(model().attributeExists("usuario"));
+                .andExpect(view().name("home/index"))
+                .andExpect(model().attributeExists("aluno"));
     }
 
     // #3 TESTE
