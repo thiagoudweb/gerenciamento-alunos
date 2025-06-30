@@ -10,13 +10,11 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+
 import java.util.List;
-
-
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-
 public class AlunoServiceTest {
 
     @Autowired
@@ -46,8 +44,10 @@ public class AlunoServiceTest {
         aluno.setStatus(Status.ATIVO);
         aluno.setMatricula("123456");
         Assert.assertThrows(ConstraintViolationException.class, () -> {
-                this.serviceAluno.save(aluno);});
+            this.serviceAluno.save(aluno);
+        });
     }
+
     // #1 TESTE
     @Test
     public void salvarSemCurso() {
@@ -79,10 +79,10 @@ public class AlunoServiceTest {
 
         Assert.assertTrue(serviceAluno.findAll().stream().noneMatch(a -> a.getId().equals(id)));
     }
+
     // #3 TESTE
     @Test
     public void procurarAlunosAtivos() {
-
         Aluno inativo = new Aluno();
         inativo.setNome("Aluno Inativo");
         inativo.setTurno(Turno.NOTURNO);
@@ -128,7 +128,4 @@ public class AlunoServiceTest {
         List<Aluno> alunos = this.serviceAluno.findAll();
         Assert.assertEquals(2, alunos.size());
     }
-
-
 }
-
