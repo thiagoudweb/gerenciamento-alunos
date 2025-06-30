@@ -26,35 +26,29 @@ public class UsuarioServiceTest {
 
     // #1 TESTE
     @Test
-    public void testUsuarioDadosInvalidas() throws Exception {
-        // Given
+    public void testLoginEntradasTrue() throws Exception {
         Usuario usuario = new Usuario();
-        usuario.setEmail("thiagosilvs@gmail.com");
-        usuario.setUser("Thiago Silva");
-        usuario.setSenha("123");
+        usuario.setUser("UsuarioLogin");
+        usuario.setEmail("login00@example.com");
+        usuario.setSenha("senha");
         this.serviceUsuario.salvarUsuario(usuario);
 
-        Usuario usuarioLogado = this.serviceUsuario.loginUser("Thiago Silva", Util.md5("senha"));
-
-
+        Usuario usuarioLogado = serviceUsuario.loginUser("UsuarioLogin", "senhaErrada");
         assertNull(usuarioLogado);
     }
     // #2 TESTE
     @Test
-    public void testUsuarioEmailExiste() throws Exception {
+    public void testLoginEntradasFalse() throws Exception {
         Usuario usuario = new Usuario();
-        usuario.setEmail("thiagosilvs@gmail.com");
-        usuario.setUser("Thiago Silva");
-        usuario.setSenha("123");
-        serviceUsuario.salvarUsuario(usuario);
+        usuario.setUser("UsuarioLogin");
+        usuario.setEmail("login@example.com");
+        usuario.setSenha("senha");
+        this.serviceUsuario.salvarUsuario(usuario);
 
-        Usuario usuario2 = new Usuario();
-        usuario.setEmail("thiagosilvs@gmail.com");
-        usuario.setUser("Thiago Silva");
-        usuario.setSenha("123");
-        Assert.assertThrows(EmailExistsException.class, () -> {
-            serviceUsuario.salvarUsuario(usuario2);});
+        Usuario usuarioLogado = serviceUsuario.loginUser(usuario.getUser(), usuario.getSenha());
+        Assert.assertTrue(usuarioLogado.getUser().equals("UsuarioLogin"));
     }
+
 
     // #3 TESTE
     @Test
